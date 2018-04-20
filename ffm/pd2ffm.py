@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd 
 from .ffm import FFMData
 from tqdm import tqdm
+from math import trunc
 
 class FFMFormatPandas:
     def __init__(self):
@@ -54,7 +55,7 @@ class FFMFormatPandas:
             feature_tuple = []
             for cat in self.categorical:
                 if pd.notnull(row[cat]):
-                    feature = '{}_{}'.format(cat, row[cat])
+                    feature = '{}_{:d}'.format(cat, trunc(row[cat]))
                     feature_tuple.append((self.field_index[cat], self.feature_index[feature], 1))
             for num in self.numerical:
                 if pd.notnull(row[num]):
